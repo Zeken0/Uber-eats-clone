@@ -62,5 +62,3 @@ const Categories = () => {
 };
 
 export default Categories;
-
-const styles = StyleSheet.create({});
