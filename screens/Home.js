@@ -7,12 +7,12 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import HeaderTabs from "../components/HeaderTabs";
-import SearchBar from "../components/SearchBar";
-import Categories from "../components/Categories";
-import RestaurantsItems from "../components/RestaurantsItems";
-import { localRestaurants } from "../components/RestaurantsItems";
-import BottomTabs from "../components/BottomTabs";
+import HeaderTabs from "../components/Home/HeaderTabs";
+import SearchBar from "../components/Home/SearchBar";
+import Categories from "../components/Home/Categories";
+import RestaurantsItems from "../components/Home/RestaurantsItems";
+import { localRestaurants } from "../components/Home/RestaurantsItems";
+import BottomTabs from "../components/Home/BottomTabs";
 import { Divider } from "react-native-elements";
 
 const YELP_API_KEY =
