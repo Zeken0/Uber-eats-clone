@@ -12,13 +12,16 @@ import SearchBar from "../components/SearchBar";
 import Categories from "../components/Categories";
 import RestaurantsItems from "../components/RestaurantsItems";
 import { localRestaurants } from "../components/RestaurantsItems";
+import BottomTabs from "../components/BottomTabs";
+import { Divider } from "react-native-elements";
 
 const YELP_API_KEY =
-  "wVQAUJ06ZouuRgrC6RD0L5rNfONarvU19mA7grflrjoj6abLgDKUdC06A-zuvGG67gi-8bg2kZddL6BN5s1BGPHoog_B4HLv92IICbd_lYCX3-AlQ0UfbPk8kMmoY3Yx";
+  "W9z9y9KVrX2J1C9kXQOGjRCbtE1EY7_rMRs2GhF2x-f-Hh9DzVXV1t1tuEq-hjl3s0HThufIkn_p-tBjn12TrXzh84v-eSX5iBv1hdpGZmoTXrvh-HkQENETBt-qY3Yx";
 
 export default function Home() {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [city, setCity] = useState("Oslo");
+  const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantsFromYelp = () => {
     const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`;
@@ -31,22 +34,30 @@ export default function Home() {
 
     return fetch(yelpUrl, apiOptions)
       .then((res) => res.json())
-      .then((json) => setRestaurantData(json.businesses));
+      .then(
+        (json) =>
+          setRestaurantData(
+            json.businesses.filter((business) => business.transactions)
+          )
+        // // console.log(restaurantData)
+      );
   };
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, [city]);
+  }, [city, activeTab]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerTabs}>
-        <HeaderTabs />
+        <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
         <SearchBar cityHandler={setCity} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
         <RestaurantsItems restaurantData={restaurantData} />
       </ScrollView>
+      <Divider width={1} />
+      <BottomTabs />
     </SafeAreaView>
   );
 }
