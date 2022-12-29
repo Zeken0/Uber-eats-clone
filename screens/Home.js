@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   StatusBar,
   SafeAreaView,
@@ -18,7 +17,7 @@ import { Divider } from "react-native-elements";
 const YELP_API_KEY =
   "W9z9y9KVrX2J1C9kXQOGjRCbtE1EY7_rMRs2GhF2x-f-Hh9DzVXV1t1tuEq-hjl3s0HThufIkn_p-tBjn12TrXzh84v-eSX5iBv1hdpGZmoTXrvh-HkQENETBt-qY3Yx";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [city, setCity] = useState("Oslo");
   const [activeTab, setActiveTab] = useState("Delivery");
@@ -54,7 +53,10 @@ export default function Home() {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
-        <RestaurantsItems restaurantData={restaurantData} />
+        <RestaurantsItems
+          restaurantData={restaurantData}
+          navigation={navigation}
+        />
       </ScrollView>
       <Divider width={1} />
       <BottomTabs />
