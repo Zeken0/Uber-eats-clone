@@ -56,10 +56,7 @@ export default function MenuItems() {
             }}
           >
             <BouncyCheckbox
-              iconStyle={{
-                borderColor: "lightgray",
-                borderRadius: 0,
-              }}
+              iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
               fillColor="green"
             />
             <FoodInfo food={food} />
