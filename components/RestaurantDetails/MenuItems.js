@@ -52,11 +52,14 @@ export default function MenuItems() {
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              margin: 20,
+              marginVertical: 18,
+              marginHorizontal: 5,
             }}
           >
             <BouncyCheckbox
-              iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
+              iconStyle={{
+                borderColor: "lightgray",
+              }}
               fillColor="green"
             />
             <FoodInfo food={food} />
