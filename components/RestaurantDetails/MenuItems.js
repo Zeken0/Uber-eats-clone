@@ -2,7 +2,7 @@ import { View, Text, Image, ScrollView } from "react-native";
 import React from "react";
 import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const foods = [
   {
@@ -57,6 +57,13 @@ export default function MenuItems({ restaurantName }) {
       },
     });
 
+  const cartItems = useSelector(
+    (state) => state.cartReducer.selectedItems.items
+  );
+
+  const isFoodInCart = (food, cartItems) =>
+    Boolean(cartItems.find((item) => item.title === food.title));
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {foods.map((food, index) => (
@@ -74,7 +81,8 @@ export default function MenuItems({ restaurantName }) {
                 borderColor: "lightgray",
               }}
               fillColor="green"
-              onPress={(checkboxValue) => selectItem(food)}
+              isChecked={isFoodInCart(food, cartItems)}
+              onPress={(checkboxValue) => selectItem(food, checkboxValue)}
             />
             <FoodInfo food={food} />
             <FoodImage food={food} />
@@ -90,18 +98,18 @@ export default function MenuItems({ restaurantName }) {
   );
 }
 
-const FoodInfo = ({ food: { description, price, title } }) => (
+const FoodInfo = (props) => (
   <View style={{ width: 240, justifyContent: "space-evenly" }}>
-    <Text style={{ fontSize: 16, fontWeight: "600" }}>{title}</Text>
-    <Text style={{ paddingRight: 5 }}>{description}</Text>
-    <Text style={{}}>{price}</Text>
+    <Text style={{ fontSize: 16, fontWeight: "600" }}>{props.food.title}</Text>
+    <Text style={{ paddingRight: 5 }}>{props.food.description}</Text>
+    <Text>{props.food.price}</Text>
   </View>
 );
 
-const FoodImage = ({ food: { image } }) => (
+const FoodImage = (props) => (
   <View>
     <Image
-      source={{ uri: image }}
+      source={{ uri: props.food.image }}
       style={{ width: 100, height: 100, borderRadius: 8 }}
     />
   </View>
