@@ -72,8 +72,6 @@ export default function MenuItems({ restaurantName }) {
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              marginVertical: 18,
-              marginHorizontal: 5,
             }}
           >
             <BouncyCheckbox

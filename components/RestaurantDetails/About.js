@@ -1,5 +1,5 @@
-import { View, Text, Image } from "react-native";
 import React from "react";
+import { View, Text, Image } from "react-native";
 
 export default function About(props) {
   const { name, image, price, reviews, rating, categories } =
@@ -8,7 +8,7 @@ export default function About(props) {
   const formattedCategories = categories.map((cat) => cat.title).join(" • ");
 
   const description = `${formattedCategories} ${
-    price ? " . " + price : ""
+    price ? " • " + price : ""
   } • 🎫 • ${rating} ⭐ (${reviews}+)`;
   return (
     <View>
