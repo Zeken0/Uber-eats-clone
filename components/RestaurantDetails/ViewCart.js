@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
+import firebase from "../../firebase";
 
 export default function ViewCart({ navigation }) {
   const [modalVisable, setModalVisable] = useState(false);
@@ -18,6 +19,15 @@ export default function ViewCart({ navigation }) {
     style: "currency",
     currency: "USD,",
   });
+
+  const addOrderToFirebase = () => {
+    const db = firebase.firestore();
+    db.collection("orders").add({
+      items: items,
+      restaurantName: restaurantName,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  };
 
   const styles = StyleSheet.create({
     modalContainer: {
@@ -48,9 +58,9 @@ export default function ViewCart({ navigation }) {
 
     subtotalText: {
       textAlign: "left",
-      fontWeight: "600",
-      fontSize: 15,
-      marginBottom: 10,
+      fontWeight: "700",
+      fontSize: 17,
+      marginBottom: 30,
     },
   });
 
@@ -65,9 +75,16 @@ export default function ViewCart({ navigation }) {
             ))}
             <View style={styles.subtotalContainer}>
               <Text style={styles.subtotalText}>Subtotal</Text>
-              <Text>${totalUSD}</Text>
+              <Text style={{ fontSize: 17, fontWeight: "600" }}>
+                ${totalUSD}
+              </Text>
             </View>
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
               <TouchableOpacity
                 style={{
                   marginTop: 20,
@@ -77,6 +94,7 @@ export default function ViewCart({ navigation }) {
                   borderRadius: 30,
                   width: 300,
                   position: "relative",
+                  justifyContent: "center",
                 }}
                 onPress={() => setModalVisable(false)}
               >
@@ -86,11 +104,11 @@ export default function ViewCart({ navigation }) {
                     position: "absolute",
                     right: 20,
                     color: "white",
-                    fontSize: 15,
-                    top: 17,
+                    fontSize: 18,
+                    top: 15,
                   }}
                 >
-                  {total ? totalUSD : ""}
+                  $ {total ? totalUSD : ""}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -135,6 +153,7 @@ export default function ViewCart({ navigation }) {
                 backgroundColor: "black",
                 flexDirection: "row",
                 justifyContent: "flex-end",
+                alignItems: "center",
                 padding: 15,
                 borderRadius: 30,
                 width: 300,
@@ -151,7 +170,9 @@ export default function ViewCart({ navigation }) {
               >
                 View Cart
               </Text>
-              <Text style={{ color: "white", fontSize: 20 }}>$ {totalUSD}</Text>
+              <Text style={{ color: "white", fontSize: 17.5 }}>
+                $ {totalUSD}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
