@@ -27,6 +27,8 @@ export default function ViewCart({ navigation }) {
       restaurantName: restaurantName,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
+    setModalVisable(false);
+    navigation.navigate("OrderCompleted");
   };
 
   const styles = StyleSheet.create({
@@ -96,7 +98,9 @@ export default function ViewCart({ navigation }) {
                   position: "relative",
                   justifyContent: "center",
                 }}
-                onPress={() => setModalVisable(false)}
+                onPress={() => {
+                  addOrderToFirebase();
+                }}
               >
                 <Text style={{ color: "white", fontSize: 20 }}>Checkout</Text>
                 <Text
