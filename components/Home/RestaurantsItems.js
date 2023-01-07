@@ -39,7 +39,7 @@ export default function RestaurantsItems({ navigation, ...props }) {
         <TouchableOpacity
           key={index}
           activeOpacity={1}
-          style={{ marginBottom: 30 }}
+          style={{ marginBottom: 5 }}
           onPress={() =>
             navigation.navigate("RestaurantDetails", {
               name: restaurant.name,

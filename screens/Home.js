@@ -33,12 +33,10 @@ export default function Home({ navigation }) {
 
     return fetch(yelpUrl, apiOptions)
       .then((res) => res.json())
-      .then(
-        (json) =>
-          setRestaurantData(
-            json.businesses.filter((business) => business.transactions)
-          )
-        // // console.log(restaurantData)
+      .then((json) =>
+        setRestaurantData(
+          json.businesses.filter((business) => business.transactions)
+        )
       );
   };
   useEffect(() => {
@@ -68,7 +66,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#eee",
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 1,
   },
   headerTabs: {
     backgroundColor: "white",
