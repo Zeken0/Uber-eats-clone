@@ -36,7 +36,7 @@ export default function MenuItems({
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
             }}
           >
             {hideCheckBox ? (
